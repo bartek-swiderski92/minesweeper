@@ -26,7 +26,7 @@ class Game extends UI {
     #numberOfMines = null;
 
     #cells = [];
-
+    #cellsElements = null;
     #board = null;
 
     initializeGame() {
@@ -44,10 +44,20 @@ class Game extends UI {
 
         this.#generateCells();
         this.#renderBoard();
+        this.#cellsElements = this.getElements(this.UiSelectors.cell);
+
+        this.#addCellsEventListeners();
     }
 
     #handleElements() {
         this.#board = this.getElement(this.UiSelectors.board);
+    }
+
+    #addCellsEventListeners() {
+        this.#cellsElements.forEach((element) => {
+            element.addEventListener('click', this.#handleCellClick)
+            element.addEventListener('contextmenu', this.#handleCellContextMenu)
+        })
     }
 
     #generateCells() {
@@ -65,8 +75,18 @@ class Game extends UI {
             cell.element = cell.getElement(cell.selector);
         });
     }
+
+    #handleCellClick = (e) => {
+        const target = e.target;
+        const rowIndex = parseInt(target.getAttribute('data-y'), 10)
+        const colIndex = parseInt(target.getAttribute('data-x'), 10)
+        this.#cells[rowIndex][colIndex].revealCell();
+    }
+
+    #handleCellContextMenu = () => { }
+
     #setStyles() {
-        document.documentElement.style.setProperty('--cells-in-row', this.#numberOfCols)
+        document.documentElement.style.setProperty('--cells-in-row', this.#numberOfCols,)
     }
 }
 
