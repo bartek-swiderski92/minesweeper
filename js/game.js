@@ -78,12 +78,29 @@ class Game extends UI {
 
     #handleCellClick = (e) => {
         const target = e.target;
-        const rowIndex = parseInt(target.getAttribute('data-y'), 10)
-        const colIndex = parseInt(target.getAttribute('data-x'), 10)
-        this.#cells[rowIndex][colIndex].revealCell();
+        const rowIndex = parseInt(target.getAttribute('data-y'), 10);
+        const colIndex = parseInt(target.getAttribute('data-x'), 10);
+
+        const cell = this.#cells[rowIndex][colIndex];
+
+        if (cell.isFlagged) return
+
+        cell.revealCell()
+
     }
 
-    #handleCellContextMenu = () => { }
+    #handleCellContextMenu = (e) => {
+        e.preventDefault();
+        const target = e.target;
+        const rowIndex = parseInt(target.getAttribute('data-y'), 10);
+        const colIndex = parseInt(target.getAttribute('data-x'), 10);
+
+        const cell = this.#cells[rowIndex][colIndex];
+
+        if (cell.isReveal) return
+
+        cell.toggleFlag();
+    }
 
     #setStyles() {
         document.documentElement.style.setProperty('--cells-in-row', this.#numberOfCols,)
