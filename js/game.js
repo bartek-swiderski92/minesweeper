@@ -34,10 +34,13 @@ class Game extends UI {
         this.#newGame();
     };
 
+
     #newGame(rows = this.#config.easy.rows, cols = this.#config.easy.cols, mines = this.#config.easy.mines) {
         this.#numberOfCols = rows;
         this.#numberOfRows = cols;
         this.#numberOfMines = mines;
+
+        this.#setStyles();
 
         this.#generateCells();
         this.#renderBoard();
@@ -62,7 +65,9 @@ class Game extends UI {
             cell.element = cell.getElement(cell.selector);
         });
     }
-
+    #setStyles() {
+        document.documentElement.style.setProperty('--cells-in-row', this.#numberOfCols)
+    }
 }
 
 
