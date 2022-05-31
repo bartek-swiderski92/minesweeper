@@ -14,13 +14,13 @@ export class Timer extends UI {
         this.#interval = setInterval(() => this.#updateTimer(), 1000)
     }
 
-    #stopTimer() {
+    stopTimer() {
         clearInterval(this.#interval)
     }
 
     #updateTimer() {
         this.numberOfSeconds++;
-        this.numberOfSeconds <= this.#maxNumberOfSeconds ? this.#setTimerValue(this.numberOfSeconds) : this.#stopTimer();
+        this.numberOfSeconds <= this.#maxNumberOfSeconds ? this.#setTimerValue(this.numberOfSeconds) : this.stopTimer();
     }
 
     #setTimerValue(value) {
