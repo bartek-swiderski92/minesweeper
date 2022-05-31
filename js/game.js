@@ -11,7 +11,7 @@ class Game extends UI {
             cols: 8,
             mines: 10
         },
-        medium: {
+        normal: {
             rows: 16,
             cols: 16,
             mines: 40
@@ -155,7 +155,48 @@ class Game extends UI {
         if (cell.isMine) {
             this.#endGame(false)
         }
+        this.#setCellValue(cell)
+    }
+
+    #setCellValue(cell) {
+        let minesCount = 0;
+        for (
+            let rowIndex = Math.max(cell.y - 1, 0);
+            rowIndex <= Math.min(cell.y + 1, this.#numberOfRows - 1);
+            rowIndex++
+        ) {
+            for (
+                let colIndex = Math.max(cell.x - 1, 0);
+                colIndex <= Math.min(cell.x + 1, this.#numberOfCols - 1);
+                colIndex++
+            ) {
+                if (this.#cells[rowIndex][colIndex].isMine) {
+                    console.log('click')
+                    minesCount++
+                }
+            }
+        }
+        cell.value = minesCount;
         cell.revealCell();
+
+        if (!cell.value) {
+            for (
+                let rowIndex = Math.max(cell.y - 1, 0);
+                rowIndex <= Math.min(cell.y + 1, this.#numberOfRows - 1);
+                rowIndex++
+            ) {
+                for (
+                    let colIndex = Math.max(cell.x - 1, 0);
+                    colIndex <= Math.min(cell.x + 1, this.#numberOfCols - 1);
+                    colIndex++
+                ) {
+                    const cell = this.#cells[rowIndex][colIndex]
+                    if (!cell.isReveal) {
+                        this.#clickCell(cell)
+                    }
+                }
+            }
+        }
     }
 
     #revealMines() {
