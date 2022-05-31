@@ -34,6 +34,9 @@ class Game extends UI {
 
     #cells = [];
     #cellsElements = null;
+    #cellsToReveal = 0;
+    #revealedCells = 0;
+
 
     #board = null;
     #buttons = {
@@ -60,6 +63,8 @@ class Game extends UI {
 
         this.#counter.setValue(this.#numberOfMines);
         this.#timer.resetTimer();
+
+        this.#cellsToReveal = this.#numberOfRows * this.#numberOfRows - this.#numberOfMines;
 
         this.#setStyles();
 
@@ -214,6 +219,10 @@ class Game extends UI {
             this.#endGame(false)
         }
         this.#setCellValue(cell)
+
+        if (this.#revealedCells === this.#cellsToReveal && !this.#isGameFinished) {
+            this.#endGame(true)
+        }
     }
 
     #setCellValue(cell) {
@@ -229,13 +238,13 @@ class Game extends UI {
                 colIndex++
             ) {
                 if (this.#cells[rowIndex][colIndex].isMine) {
-                    console.log('click')
                     minesCount++
                 }
             }
         }
         cell.value = minesCount;
         cell.revealCell();
+        this.#revealedCells++;
 
         if (!cell.value) {
             for (
