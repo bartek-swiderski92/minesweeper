@@ -2,6 +2,7 @@ import { Cell } from './Cell.js';
 import { UI } from './UI.js';
 import { Counter } from './Counter.js';
 import { Timer } from './Timer.js';
+import { ResetButton } from './ResetButton.js';
 
 class Game extends UI {
 
@@ -33,12 +34,21 @@ class Game extends UI {
 
     #cells = [];
     #cellsElements = null;
+
     #board = null;
+    #buttons = {
+        modal: null,
+        easy: null,
+        normal: null,
+        expert: null,
+        reset: new ResetButton(),
+    }
 
     initializeGame() {
         this.#handleElements();
         this.#counter.init();
         this.#timer.init();
+        this.#addButtonsEventListeners()
         this.#newGame();
     };
 
@@ -49,7 +59,7 @@ class Game extends UI {
         this.#numberOfMines = mines;
 
         this.#counter.setValue(this.#numberOfMines);
-        this.#timer.startTimer();
+        this.#timer.resetTimer();
 
         this.#setStyles();
 
@@ -73,6 +83,10 @@ class Game extends UI {
 
     #handleElements() {
         this.#board = this.getElement(this.UiSelectors.board);
+        this.#buttons.modal = this.getElement(this.UiSelectors.modalButton)
+        this.#buttons.easy = this.getElement(this.UiSelectors.easyButton)
+        this.#buttons.normal = this.getElement(this.UiSelectors.normalButton)
+        this.#buttons.expert = this.getElement(this.UiSelectors.expertButton)
     }
 
     #addCellsEventListeners() {
@@ -82,7 +96,48 @@ class Game extends UI {
         })
     }
 
+    #addButtonsEventListeners() {
+        this.#buttons.easy.addEventListener('click', () =>
+            this.#handleNewGameClick(
+                this.#config.easy.rows,
+                this.#config.easy.cols,
+                this.#config.easy.mines
+            ));
+        this.#buttons.normal.addEventListener('click', () =>
+            this.#handleNewGameClick(
+                this.#config.normal.rows,
+                this.#config.normal.cols,
+                this.#config.normal.mines
+            ));
+        this.#buttons.expert.addEventListener('click', () =>
+            this.#handleNewGameClick(
+                this.#config.expert.rows,
+                this.#config.expert.cols,
+                this.#config.expert.mines
+            ));
+        this.#buttons.reset.element.addEventListener('click', () =>
+            this.#handleNewGameClick()
+        )
+    }
+
+    #removeCellsEventListeners() {
+        this.#cellsElements.forEach((element) => {
+            element.removeEventListener('click', this.#handleCellClick)
+            element.removeEventListener('contextmenu', this.#handleCellContextMenu)
+        })
+    }
+
+
+    #handleNewGameClick(
+        rows = this.#numberOfRows,
+        cols = this.#numberOfCols,
+        mines = this.#numberOfMines) {
+        this.#removeCellsEventListeners();
+        this.#newGame(rows, cols, mines)
+    }
+
     #generateCells() {
+        this.#cells.length = 10;
         for (let row = 0; row < this.#numberOfRows; row++) {
             this.#cells[row] = []
             for (let col = 0; col < this.#numberOfCols; col++) {
@@ -92,6 +147,9 @@ class Game extends UI {
     }
 
     #renderBoard() {
+        while (this.#board.firstChild) {
+            this.#board.removeChild(this.#board.lastChild)
+        }
         this.#cells.flat().forEach((cell) => {
             this.#board.insertAdjacentHTML('beforeend', cell.createElement());
             cell.element = cell.getElement(cell.selector);
