@@ -92,10 +92,17 @@ class Game extends UI {
         let minesToPlace = this.#numberOfMines;
 
         while (minesToPlace) {
-            const rowIndex = this.#getRandomInteger(0, this.#numbersOfRows - 1);
-            const colIndex = this.#getRandomInteger(0, this.#numbersOfCols - 1);
+            const rowIndex = this.#getRandomInteger(0, this.#numberOfRows - 1);
+            const colIndex = this.#getRandomInteger(0, this.#numberOfCols - 1);
 
-            const cell = this.#cells[rowIndex][collIndex]
+            const cell = this.#cells[rowIndex][colIndex];
+
+            const hasCellMine = cell.isMine;
+
+            if (!hasCellMine) {
+                cell.addMine();
+                minesToPlace--
+            }
         }
 
     }
@@ -107,9 +114,11 @@ class Game extends UI {
 
         const cell = this.#cells[rowIndex][colIndex];
 
-        if (cell.isFlagged) return
+        this.#clickCell(cell)
 
-        cell.revealCell()
+        // if (cell.isFlagged) return
+
+        // cell.revealCell()
 
     }
 
@@ -135,6 +144,12 @@ class Game extends UI {
             return
         }
 
+    }
+    #clickCell(cell) {
+        if (cell.isMine) {
+            return
+        }
+        cell.revealCell();
     }
 
     #setStyles() {

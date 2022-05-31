@@ -28,4 +28,8 @@ export class Cell extends UI {
         this.element.classList.remove('border--concave')
         this.element.classList.add('border--revealed')
     }
+
+    addMine() {
+        this.isMine = true
+    }
 }
