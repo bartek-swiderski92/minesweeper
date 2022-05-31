@@ -18,7 +18,7 @@ In order to place a flag on a mobile device, tap and hold the screen till flag a
 Snips from the game:
 
 <div>
-<img height="465px" margin="20px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/easy-win.png?raw=true"/>
-<img height="465px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/expert-defeat.png?raw=true"/>
+<img height="350px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/easy-win.png?raw=true"/>
+<img height="350px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/expert-defeat.png?raw=true"/>
 </div>
 
