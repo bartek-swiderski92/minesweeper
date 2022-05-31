@@ -19,8 +19,8 @@ class Game extends UI {
             mines: 40
         },
         expert: {
-            rows: 30,
-            cols: 16,
+            rows: 16,
+            cols: 30,
             mines: 99
         }
     };
@@ -59,8 +59,8 @@ class Game extends UI {
 
 
     #newGame(rows = this.#config.easy.rows, cols = this.#config.easy.cols, mines = this.#config.easy.mines) {
-        this.#numberOfCols = rows;
-        this.#numberOfRows = cols;
+        this.#numberOfCols = cols;
+        this.#numberOfRows = rows;
         this.#numberOfMines = mines;
 
         this.#counter.setValue(this.#numberOfMines);
