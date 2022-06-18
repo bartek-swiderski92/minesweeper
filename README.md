@@ -9,9 +9,9 @@
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />&nbsp;&nbsp;
 <img src="https://img.shields.io/badge/OOP-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />&nbsp;&nbsp;
 
-### [Click here to play the game!](https://bartek-swiderski92.github.io/minesweeper/)
+### [Click here to play the game!](https://bartek-swiderski92.github.io/black-jack/)
 
-The app resembles popular PC game known as Minesweeper, the project is fully focused on Object Oriented Programming using Vanilla JS. The game is designed for desktop browsers, But it behaves correctly on mobiles devices as long the screen width is bigger than the gameboard (The project presents programming skills, therefore responsivnes was not taken into account).
+The app resembles popular PC game known as Minesweeper. The project is fully focused on Object Oriented Programming using Vanilla JS. The game is designed for desktop browsers, but it behaves correctly on mobiles devices as long the screen width is bigger than the gameboard (the project presents programming skills, therefore responsivnes was not taken into account).
 In order to place a flag on a mobile device, tap and hold the screen till flag appears.
 
 Snips from the game:
@@ -20,4 +20,5 @@ Snips from the game:
 <img height="350px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/easy-win.png?raw=true"/>
 <img height="350px" src="https://github.com/bartek-swiderski92/minesweeper/blob/master/snips/expert-defeat.png?raw=true"/>
 </div>
+
 
